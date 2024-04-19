@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section id="recent-products" class="recent-products">
+    <div class="recent-products-box">
+        <h2 class="heading drumdrop">Products Available</h2>
+        <div class="wrapper">
+            {% for product in products %}
+            <div class="recent-products-item">
+                <img src="{{ product.imageURL }}" alt="{{ product.name }}">
+                <h2>{{ product.name }}</h2>
+                <p>
+                    ${{ product.price }}
+                </p>
+                <div class="btn-group">
+                    <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary btn-sm add-btn update-cart">Add to Cart</button>
+                    <a href="#" class="btn btn-outline-success btn-sm float-right">View</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

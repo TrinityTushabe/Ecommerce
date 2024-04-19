@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fancy Animated Heading</title>
+<style>
+  .heading {
+    font-family: cursive;
+    font-size: 3em;
+    text-align: center;
+    color: #333; /* Default color */
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #333; /* Default underline color */
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  .heading:hover {
+    color: #ff69b4; /* Fancy color on hover */
+  }
+
+  .heading:hover::after {
+    width: 100%;
+    left: 0;
+    background-color: #ff69b4; /* Fancy underline color on hover */
+  }
+
+  /* Keyframes for drumdrop effect */
+  @keyframes drumdrop {
+    0% {
+      transform: translateY(-20px);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .drumdrop {
+    animation: drumdrop 1s ease infinite;
+  }
+</style>
+</head>
+<body>
+
+<h2 class="heading drumdrop">Recent Products</h2>
+
+</body>
+</html>

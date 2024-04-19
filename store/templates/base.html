@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perm'sArtistry</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <!-- Add Fonts Awsome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Add Slick Carousel CSS file -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <!-- Add Fancybox CSS file -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <!-- Add Hover.css CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
+
+    <style>
+        .chat-icon {
+            color: #fff;
+            margin-left: 20px;
+            font-size: 24px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#home" class="logo">Keeper's Kaleidoscope<span>VisionaryVault</span></a>
+        <i class="fas fa-bars" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="active"><i class="ri-home-3-line"></i> Home</a>
+            <a href="{% url 'shop' %}"><i class="ri-store-2-line"></i> Shop</a>
+            <a href="{% url 'carta' %}" id="cart-icon"><i class="ri-shopping-cart-2-line"></i>{{cartItems}} Cart</a>
+            <a href="{% url 'checkout2' %}"><i class="ri-shopping-cart-fill"></i> Orders</a>
+            <div class="dropdown">
+                <button class="dropbtn"><i class="ri-user-settings-line"></i> Account</button>
+                <div class="dropdown-content">
+                    <a href="#profile"><i class="ri-account-circle-line"></i> Profile</a>
+                    <a href="#settings"><i class="ri-settings-2-line"></i> Settings</a>
+                    <a href="{% url 'logout' %}"><i class="ri-logout-circle-r-line"></i> Logout</a>
+                </div>
+            </div>
+            <a href="#chatbot" class="chat-icon"><i class="fas fa-comment-alt-smile"></i></a>
+        </nav>        
+    </header>
+    <div class="container">
+        <br>
+        {% block content %}
+
+
+        {% endblock content %}
+     </div>
+
+     <footer class="footer">
+        <div class="social">
+            <a href="https://www.linkedin.com/in/tushabe-trinity-francesco/"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/TrinityTushabe"><i class="fa-brands fa-github"></i></a>
+            <a href="https://wa.me/+256758931512"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        <ul class="list">
+            <li>
+                <a href="#home">Home</a>
+            </li>
+            <li>
+                <a href="#skills">Skills</a>
+            </li>
+            <li>
+                <a href="#experience">Experience</a>
+            </li>
+            <li>
+                <a href="#contact-us">Contact</a>
+            </li>
+            <li>
+                <a href="#more">More</a>
+            </li>
+        </ul>
+        <p class="copyright">
+            <script>document.write(new Date().getFullYear())</script> <span style="font-weight: bold;">&copy;</span> Tushabe Trinity Francesco | All Rights Reversed
+        </p>
+    </footer>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+</body>
+</html>
